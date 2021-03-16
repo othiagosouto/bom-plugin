@@ -1,0 +1,78 @@
+package dev.thiagosouto.plugins.bom
+
+import com.google.common.truth.Truth.assertThat
+import dev.thiagosouto.butler.file.readFile
+import dev.thiagosouto.plugins.bom.pom.BOMDocumentCreator
+import org.junit.Before
+import org.junit.Test
+
+class BOMDocumentCreatorTest {
+    private lateinit var creator: BOMDocumentCreator
+    private val projectTags: List<Tag>
+        get() {
+            val attrs = mutableListOf<Tag>()
+            attrs.add(Tag("modelVersion", "4.0.0"))
+            attrs.add(Tag("groupId", "dev.thiagosouto"))
+            attrs.add(Tag("artifactId", "bom-validation"))
+            attrs.add(Tag("version", "1.0"))
+            attrs.add(Tag("packaging", "pom"))
+            return attrs
+        }
+    private val projectAttributes: List<Tag>
+        get() {
+            val attrs = mutableListOf<Tag>()
+            attrs.add(Tag("xmlns", "http://maven.apache.org/POM/4.0.0"))
+            attrs.add(Tag("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance"))
+            attrs.add(
+                Tag(
+                    "xsi:schemaLocation",
+                    "http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+                )
+            )
+            return attrs
+        }
+
+    @Before
+    fun setup() {
+        creator = BOMDocumentCreator()
+    }
+
+    @Test
+    fun `should create pom without exclusion`() {
+        val bomInfo = BomInfo(projectAttributes, projectTags, createDependencies())
+
+        val element = creator.create(bomInfo)
+        val content = TestUtils.getNodeString(element, "testPom")
+
+        assertThat(content).isEqualTo(readFile("pom_without_exclusion.xml"))
+    }
+
+    @Test
+    fun `should create pom without exclusionInfo`() {
+        val bomInfo = BomInfo(projectAttributes, projectTags, createDependencies(true))
+        val element = creator.create(bomInfo)
+
+        val content = TestUtils.getNodeString(element, "testPom")
+
+        assertThat(content).isEqualTo(readFile("pom_with_exclusions.xml"))
+    }
+
+    private fun createDependencies(isExclusion: Boolean = false): List<Dependency> {
+        val dependencies = mutableListOf<Dependency>()
+        for (i in 0..10) {
+            val exclusions: List<Exclusion> = if (isExclusion) createExclusions() else emptyList()
+            dependencies.add(Dependency("artifactId$i", "groupId$i", "version$i", exclusions))
+        }
+
+        return dependencies
+    }
+
+    private fun createExclusions(): List<Exclusion> {
+        val exclusions = mutableListOf<Exclusion>()
+
+        for (i in 0..3) {
+            exclusions.add(Exclusion("artifactIdExclusion$i", "groupIdExclusion$i"))
+        }
+        return exclusions
+    }
+}
