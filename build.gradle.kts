@@ -9,7 +9,7 @@ plugins {
 }
 
 group  "dev.thiagosouto"
-version "0.2.1-SNAPSHOT"
+version "0.3"
 
 buildscript {
     repositories {
@@ -68,7 +68,7 @@ publishing {
     }
     publications {
         group = "dev.thiagosouto"
-        version = "0.2.1-SNAPSHOT"
+        version = "0.3"
         create<MavenPublication>("mavenJava") {
             pom {
                 name.set("bom-plugin")
