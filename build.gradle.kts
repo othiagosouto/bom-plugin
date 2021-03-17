@@ -9,7 +9,7 @@ plugins {
 }
 
 group  "dev.thiagosouto"
-version "0.2-SNAPSHOT"
+version "0.2.1-SNAPSHOT"
 
 buildscript {
     repositories {
@@ -37,8 +37,8 @@ repositories {
 dependencies {
     implementation("com.squareup:kotlinpoet:1.7.2")
 
-    testImplementation("junit:junit:4.13.2")
     testImplementation("com.google.truth:truth:1.1.2")
+    testImplementation ("junit:junit:4.13.2")
     testImplementation("dev.thiagosouto:file-butler:0.3.0")
 }
 
@@ -68,7 +68,7 @@ publishing {
     }
     publications {
         group = "dev.thiagosouto"
-        version = "0.2-SNAPSHOT"
+        version = "0.2.1-SNAPSHOT"
         create<MavenPublication>("mavenJava") {
             pom {
                 name.set("bom-plugin")

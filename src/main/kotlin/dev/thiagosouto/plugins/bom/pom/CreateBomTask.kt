@@ -18,12 +18,12 @@ import javax.xml.transform.stream.StreamResult
 
 open class CreateBomTask : DefaultTask() {
 
+
     @TaskAction
     fun create() {
         val creator = BOMDocumentCreator()
         val bomMetadata = BomMetadata.fromProject(project)
-        val bomInfo =
-            BomInfo(createProjectAttributes(), createProjectTags(bomMetadata), project.createDependencies())
+        val bomInfo = BomInfo(createProjectAttributes(), createProjectTags(bomMetadata), project.createDependencies())
         Files.createDirectories(Paths.get("${project.buildDir}/outputs/bom/"))
         createXml(creator.create(bomInfo), "${project.buildDir}/outputs/bom/pom.xml")
     }

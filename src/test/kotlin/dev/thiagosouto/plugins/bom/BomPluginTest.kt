@@ -36,7 +36,7 @@ class BomPluginTest{
                     version = "0.1.0-SNAPSHOT"
                 }          
                 dependencies {
-                    bomConfiguration "junit:junit:4.13.2"
+                    implementation "junit:junit:4.13.2"
                     implementation  "com.google.truth:truth:1.1.2"
                 }
             """
