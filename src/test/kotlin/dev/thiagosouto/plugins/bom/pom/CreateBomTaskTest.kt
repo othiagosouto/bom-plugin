@@ -25,7 +25,7 @@ class CreateBomTaskTest {
             """
                  plugins {
                     id "java"
-                    id "bom-plugin"
+                    id "dev.thiagosouto.plugins.bom-plugin"
                 }
                 bomMetadata {
                     artifactId = "artifact-bom"
