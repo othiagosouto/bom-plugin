@@ -2,7 +2,6 @@ plugins {
     java
     `java-gradle-plugin`
     `kotlin-dsl`
-    signing
     kotlin("jvm") version "1.4.31"
     id("java-gradle-plugin")
     id("maven-publish")
