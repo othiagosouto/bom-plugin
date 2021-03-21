@@ -1,3 +1,6 @@
+import org.jetbrains.changelog.closure
+import org.jetbrains.changelog.date
+
 plugins {
     java
     `java-gradle-plugin`
@@ -6,6 +9,7 @@ plugins {
     id("java-gradle-plugin")
     id("maven-publish")
     id("com.gradle.plugin-publish") version "0.12.0"
+    id("org.jetbrains.changelog") version "1.1.2"
 }
 
 group ="dev.thiagosouto"
@@ -58,6 +62,15 @@ tasks.withType<GenerateModuleMetadata> {
     enabled = false
 }
 
+changelog {
+    version = "0.3"
+    path = "${project.projectDir}/CHANGELOG.md"
+    header = closure { "[$version] - ${date()}" }
+    itemPrefix = "-"
+    keepUnreleasedSection = true
+    unreleasedTerm = "[Unreleased]"
+    groups = listOf("Added", "Changed", "Deprecated", "Removed", "Fixed")
+}
 pluginBundle {
     website = "https://thiagosouto.dev"
     vcsUrl = "https://github.com/othiagosouto/bom-plugin"
