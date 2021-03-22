@@ -10,21 +10,12 @@ plugins {
     id("maven-publish")
     id("com.gradle.plugin-publish") version "0.12.0"
     id("org.jetbrains.changelog") version "1.1.2"
+    id("io.gitlab.arturbosch.detekt") version "1.16.0"
 }
 
 group ="dev.thiagosouto"
 version ="0.3"
 description = "A plugin to generate BOM from gradle projects"
-
-
-buildscript {
-    repositories {
-        mavenCentral()
-        maven {
-            url = uri("https://plugins.gradle.org/m2/")
-        }
-    }
-}
 
 gradlePlugin {
     plugins {
@@ -35,11 +26,11 @@ gradlePlugin {
             description = "A plugin to generate BOM from gradle projects"
         }
     }
-
 }
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -48,6 +39,8 @@ dependencies {
     testImplementation("com.google.truth:truth:1.1.2")
     testImplementation("junit:junit:4.13.2")
     testImplementation("dev.thiagosouto:file-butler:0.3.0")
+
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.16.0")
 }
 
 sourceSets.main {
