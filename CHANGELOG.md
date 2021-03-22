@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Added
+- Created `bomConfiguration` to map dependencies related to the bill fo materials
 
 ### Changed
 
