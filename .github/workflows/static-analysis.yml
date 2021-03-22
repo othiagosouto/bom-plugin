@@ -1,6 +1,5 @@
 name: Static-Analysis
 
-# Run this workflow every time a new commit pushed to your repository
 on: pull_request
 
 jobs:
@@ -18,7 +17,7 @@ jobs:
           java-version: 1.8
 
       - name: Check code smells
-        run: ./gradlew detekt --stacktrace
+        run: ./gradlew detekt
   
   unit_tests:
     runs-on: ubuntu-latest
