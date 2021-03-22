@@ -11,7 +11,7 @@ plugin-DSL:
 
 ```kotlin
 plugins {
-    id("dev.thiagosouto.plugins.bom-plugin") version "0.3"
+    id("dev.thiagosouto.plugins.bom-plugin") version "0.4"
 }
 bomMetadata{
     artifactId = "some-artifact-id" // The id of the artifact(pom.xml) created
@@ -30,7 +30,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath("dev.thiagosouto:bom-plugin:0.3")
+        classpath("dev.thiagosouto:bom-plugin:0.4")
     }
 }
 
@@ -49,7 +49,7 @@ plugin-DSL:
 
 ```groovy
 plugins {
-    id "dev.thiagosouto.plugins.bom-plugin" version "0.3"
+    id "dev.thiagosouto.plugins.bom-plugin" version "0.4"
 }
 bomMetadata{
     artifactId = "some-artifact-id" // The id of the artifact(pom.xml) created
@@ -68,7 +68,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath "dev.thiagosouto:bom-plugin:0.3"
+        classpath "dev.thiagosouto:bom-plugin:0.4"
     }
 }
 
@@ -81,6 +81,9 @@ bomMetadata{
     version = "someVersion"// The version of the artifact created
 }
 ```
+
+### Dependencies
+You need to use `implementation` and `bomConfiguration` to declare the dependencies that will be added to the `pom.xml` and kotlin generated classes.
 
 ### Tasks
 `./gradlew createBomFile` will create the `pom.xml` in `build/outputs/bom/pom.xml`
