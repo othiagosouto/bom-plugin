@@ -43,7 +43,7 @@ class CreateBomTaskTest {
         buildFile.appendText(
             """     
                 dependencies {
-                    implementation("junit:junit:4.13.2") {
+                    bomConfiguration("junit:junit:4.13.2") {
                         exclude group: 'com.google.guava', module:  'guava'
                     }
                 }
@@ -66,7 +66,7 @@ class CreateBomTaskTest {
         buildFile.appendText(
             """     
                 dependencies {
-                    implementation("junit:junit:4.13.2")
+                    bomConfiguration("junit:junit:4.13.2")
                 }
             """
         )

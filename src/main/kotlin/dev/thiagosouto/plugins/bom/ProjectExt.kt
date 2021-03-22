@@ -7,7 +7,7 @@ fun Project.createDependencies(): List<Dependency> {
     val deps = mutableListOf<Dependency>()
     project
         .configurations
-        .filter { it.name == "implementation" }
+        .filter { it.name == "bomConfiguration" }
         .forEach { config ->
             config.dependencies.forEach { dependency ->
                 if (dependency is ModuleDependency) {
