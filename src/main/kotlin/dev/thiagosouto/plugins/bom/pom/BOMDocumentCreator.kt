@@ -1,6 +1,9 @@
 package dev.thiagosouto.plugins.bom.pom
 
-import dev.thiagosouto.plugins.bom.*
+import dev.thiagosouto.plugins.bom.BomInfo
+import dev.thiagosouto.plugins.bom.Dependency
+import dev.thiagosouto.plugins.bom.Exclusion
+import dev.thiagosouto.plugins.bom.Tag
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node

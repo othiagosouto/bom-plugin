@@ -1,6 +1,5 @@
-package dev.thiagosouto.plugins.bom.dependencies_creator
+package dev.thiagosouto.plugins.bom.dependencies.creator
 
-import com.google.common.truth.Truth
 import com.google.common.truth.Truth.*
 import dev.thiagosouto.butler.file.readFile
 import org.gradle.testkit.runner.GradleRunner

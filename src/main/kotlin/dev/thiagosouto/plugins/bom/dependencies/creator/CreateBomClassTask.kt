@@ -1,4 +1,4 @@
-package dev.thiagosouto.plugins.bom.dependencies_creator
+package dev.thiagosouto.plugins.bom.dependencies.creator
 
 import dev.thiagosouto.plugins.bom.BomMetadata
 import dev.thiagosouto.plugins.bom.createDependencies

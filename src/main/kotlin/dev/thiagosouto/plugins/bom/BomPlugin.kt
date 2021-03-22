@@ -1,6 +1,6 @@
 package dev.thiagosouto.plugins.bom
 
-import dev.thiagosouto.plugins.bom.dependencies_creator.CreateBomClassTask
+import dev.thiagosouto.plugins.bom.dependencies.creator.CreateBomClassTask
 import dev.thiagosouto.plugins.bom.pom.CreateBomTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -23,7 +23,6 @@ class BomPlugin : Plugin<Project> {
     private fun ConfigurationContainer.createConfiguration(name: String): Configuration {
         return this.create(name)
     }
-
 }
 
 fun Project.createBomMetadataExtension() {

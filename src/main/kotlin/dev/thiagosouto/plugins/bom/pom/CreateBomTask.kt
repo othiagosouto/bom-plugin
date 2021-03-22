@@ -18,7 +18,6 @@ import javax.xml.transform.stream.StreamResult
 
 open class CreateBomTask : DefaultTask() {
 
-
     @TaskAction
     fun create() {
         val creator = BOMDocumentCreator()

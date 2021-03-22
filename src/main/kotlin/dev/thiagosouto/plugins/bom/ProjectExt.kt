@@ -9,15 +9,20 @@ fun Project.createDependencies(): List<Dependency> {
         .configurations
         .filter { it.name == "bomConfiguration" }
         .forEach { config ->
-            config.dependencies.forEach { dependency ->
-                if (dependency is ModuleDependency) {
-                    val exclusions = mutableListOf<Exclusion>()
-                    dependency.excludeRules.forEach {
-                        exclusions.add(Exclusion(it.module, it.group))
-                    }
-                    deps.add(Dependency(dependency.name, dependency.group ?: "", dependency.version ?: "", exclusions))
-                }
+            config.dependencies.forEach {
+                deps.add(Dependency(it.name, it.group ?: "", it.version ?: "", getExclusions(it)))
             }
         }
+
     return deps
+}
+
+private fun getExclusions(dependency: org.gradle.api.artifacts.Dependency): List<Exclusion> {
+    val exclusions = mutableListOf<Exclusion>()
+    if (dependency is ModuleDependency) {
+        dependency.excludeRules.forEach {
+            exclusions.add(Exclusion(it.module, it.group))
+        }
+    }
+    return exclusions
 }
