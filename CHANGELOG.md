@@ -2,7 +2,8 @@
 
 ## [Unreleased]
 ### Added
-- Created `bomConfiguration` to map dependencies related to the bill fo materials
+- `bomConfiguration` to map dependencies related to the bill fo materials
+- apply detekt plugin 1.16.0
 
 ### Changed
 
