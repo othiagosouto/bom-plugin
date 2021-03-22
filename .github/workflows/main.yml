@@ -17,6 +17,6 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Check code smells
+      - name: publish gradle plugin
         run: ./gradlew publishPlugins -Pgradle.publish.key=secrets.GRADLE_KEY -Pgradle.publish.secret=secrets.GRADLE_SECRET
   
