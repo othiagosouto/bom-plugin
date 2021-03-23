@@ -1,7 +1,8 @@
 name: publish plugin
 on:
-  branches:
-    - main
+  push:
+    branches:
+      - main
 
 jobs:
   push:
@@ -18,5 +19,9 @@ jobs:
           java-version: 1.8
 
       - name: publish gradle plugin
-        run: ./gradlew publishPlugins -Pgradle.publish.key=secrets.GRADLE_KEY -Pgradle.publish.secret=secrets.GRADLE_SECRET
+        env:
+          GRADLE_KEY: ${{ secrets.GRADLE_KEY }}
+          GRADLE_SECRET: ${{ secrets.GRADLE_SECRET }}
+        run: |
+         ./gradlew publishPlugins -Pgradle.publish.key=$GRADLE_KEY -Pgradle.publish.secret=$GRADLE_SECRET
   
