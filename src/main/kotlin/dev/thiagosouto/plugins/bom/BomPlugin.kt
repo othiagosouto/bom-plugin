@@ -11,9 +11,9 @@ import org.gradle.kotlin.dsl.create
 class BomPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         target.createBomMetadataExtension()
-        val configuration = target.configurations.createConfiguration("bomConfiguration")
+        val bomConfiguration = target.configurations.createConfiguration("bomConfiguration")
         target.configurations.getByName("implementation") {
-            configuration.extendsFrom(this)
+            this.extendsFrom(bomConfiguration)
         }
 
         target.tasks.create("createBomFile", CreateBomTask::class.java)

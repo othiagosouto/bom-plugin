@@ -5,6 +5,10 @@
 ### Modified
 ### Removed
 
+## Version 0.4.1 - (2021-03-26)]
+### Fixed
+- Artifacts from `bomConfiguration` weren't available to `implementation` configuration.
+
 ## Version 0.4 - (2021-03-22)
 ### Added
 - `bomConfiguration` to map dependencies related to the bill fo materials
