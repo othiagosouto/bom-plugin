@@ -10,7 +10,7 @@ plugins {
 }
 
 group ="dev.thiagosouto"
-version ="0.4"
+version ="0.4.1"
 description = "A plugin to generate BOM from gradle projects"
 
 gradlePlugin {

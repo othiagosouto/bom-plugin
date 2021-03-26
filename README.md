@@ -11,7 +11,7 @@ plugin-DSL:
 
 ```kotlin
 plugins {
-    id("dev.thiagosouto.plugins.bom-plugin") version "0.4"
+    id("dev.thiagosouto.plugins.bom-plugin") version "0.4.1"
 }
 bomMetadata{
     artifactId = "some-artifact-id" // The id of the artifact(pom.xml) created
@@ -30,7 +30,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath("dev.thiagosouto:bom-plugin:0.4")
+        classpath("dev.thiagosouto:bom-plugin:0.4.1")
     }
 }
 
@@ -49,7 +49,7 @@ plugin-DSL:
 
 ```groovy
 plugins {
-    id "dev.thiagosouto.plugins.bom-plugin" version "0.4"
+    id "dev.thiagosouto.plugins.bom-plugin" version "0.4.1"
 }
 bomMetadata{
     artifactId = "some-artifact-id" // The id of the artifact(pom.xml) created
@@ -68,7 +68,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath "dev.thiagosouto:bom-plugin:0.4"
+        classpath "dev.thiagosouto:bom-plugin:0.4.1"
     }
 }
 
