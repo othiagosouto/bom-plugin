@@ -2,6 +2,7 @@ package dev.thiagosouto.plugins.bom.pom
 
 import dev.thiagosouto.plugins.bom.BomInfo
 import dev.thiagosouto.plugins.bom.BomMetadata
+import dev.thiagosouto.plugins.bom.RootTag
 import dev.thiagosouto.plugins.bom.SimpleTag
 import dev.thiagosouto.plugins.bom.Tag
 import dev.thiagosouto.plugins.bom.createDependencies
@@ -23,7 +24,11 @@ open class CreateBomTask : DefaultTask() {
     fun create() {
         val creator = BOMDocumentCreator()
         val bomMetadata = BomMetadata.fromProject(project)
-        val bomInfo = BomInfo(createProjectAttributes(), createProjectTags(bomMetadata), project.createDependencies())
+        val bomInfo = BomInfo(
+            createProjectAttributes(),
+            createProjectTags(bomMetadata) + createLicenseTags(bomMetadata),
+            project.createDependencies()
+        )
         Files.createDirectories(Paths.get("${project.buildDir}/outputs/bom/"))
         createXml(creator.create(bomInfo), "${project.buildDir}/outputs/bom/pom.xml")
     }
@@ -58,5 +63,18 @@ open class CreateBomTask : DefaultTask() {
         attrs.add(SimpleTag("description", projectInfo.description))
         attrs.add(SimpleTag("name", projectInfo.name))
         return attrs
+    }
+
+    private fun createLicenseTags(projectInfo: BomMetadata): List<Tag> {
+        val tags = mutableListOf<Tag>()
+        if (projectInfo.licenseName.isNotEmpty() && projectInfo.licenseUrl.isNotEmpty()) {
+            val licenseTags = mutableListOf<Tag>()
+            licenseTags.add(SimpleTag("name", projectInfo.licenseName))
+            licenseTags.add(SimpleTag("url", projectInfo.licenseUrl))
+            val license = RootTag("license", licenseTags)
+            val licenseTag = RootTag("licenses", listOf(license))
+            tags.add(licenseTag)
+        }
+        return tags
     }
 }

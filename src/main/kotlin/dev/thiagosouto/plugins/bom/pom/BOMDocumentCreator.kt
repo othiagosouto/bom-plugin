@@ -3,6 +3,7 @@ package dev.thiagosouto.plugins.bom.pom
 import dev.thiagosouto.plugins.bom.BomInfo
 import dev.thiagosouto.plugins.bom.Dependency
 import dev.thiagosouto.plugins.bom.Exclusion
+import dev.thiagosouto.plugins.bom.RootTag
 import dev.thiagosouto.plugins.bom.SimpleTag
 import dev.thiagosouto.plugins.bom.Tag
 import org.w3c.dom.Document
@@ -40,8 +41,13 @@ internal class BOMDocumentCreator {
 
     private fun appendPomInfo(document: Document, rootElement: Element, tags: List<Tag>) {
         for (tag in tags) {
-            if (tag is SimpleTag) {
-                rootElement.appendChild(createTagValueElement(document, tag.name, tag.value))
+            when (tag) {
+                is SimpleTag -> rootElement.appendChild(createTagValueElement(document, tag.name, tag.value))
+                is RootTag -> {
+                    val rootTag = document.createElement(tag.name)
+                    appendPomInfo(document, rootTag, tag.tags)
+                    rootElement.appendChild(rootTag)
+                }
             }
         }
     }
