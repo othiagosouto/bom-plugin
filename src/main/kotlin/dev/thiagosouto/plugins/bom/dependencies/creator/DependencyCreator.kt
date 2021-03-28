@@ -10,7 +10,7 @@ import dev.thiagosouto.plugins.bom.convertToFieldName
 import java.io.File
 import kotlin.reflect.KClass
 
-class DependencyCreator(path: String) {
+internal class DependencyCreator(path: String) {
     private val filePath = File(path)
 
     fun generate(packageName: String, className: String, dependenciesList: List<Dependency>) {

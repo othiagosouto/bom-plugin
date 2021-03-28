@@ -11,20 +11,20 @@ class BOMDocumentCreatorTest {
     private val projectTags: List<Tag>
         get() {
             val attrs = mutableListOf<Tag>()
-            attrs.add(Tag("modelVersion", "4.0.0"))
-            attrs.add(Tag("groupId", "dev.thiagosouto"))
-            attrs.add(Tag("artifactId", "bom-validation"))
-            attrs.add(Tag("version", "1.0"))
-            attrs.add(Tag("packaging", "pom"))
+            attrs.add(SimpleTag("modelVersion", "4.0.0"))
+            attrs.add(SimpleTag("groupId", "dev.thiagosouto"))
+            attrs.add(SimpleTag("artifactId", "bom-validation"))
+            attrs.add(SimpleTag("version", "1.0"))
+            attrs.add(SimpleTag("packaging", "pom"))
             return attrs
         }
     private val projectAttributes: List<Tag>
         get() {
             val attrs = mutableListOf<Tag>()
-            attrs.add(Tag("xmlns", "http://maven.apache.org/POM/4.0.0"))
-            attrs.add(Tag("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance"))
+            attrs.add(SimpleTag("xmlns", "http://maven.apache.org/POM/4.0.0"))
+            attrs.add(SimpleTag("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance"))
             attrs.add(
-                Tag(
+                SimpleTag(
                     "xsi:schemaLocation",
                     "http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
                 )

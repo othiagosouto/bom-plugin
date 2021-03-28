@@ -11,7 +11,7 @@ plugin-DSL:
 
 ```kotlin
 plugins {
-    id("dev.thiagosouto.plugins.bom-plugin") version "0.4.1"
+    id("dev.thiagosouto.plugins.bom-plugin") version "0.5.0"
 }
 bomMetadata{
     artifactId = "some-artifact-id" // The id of the artifact(pom.xml) created
@@ -30,7 +30,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath("dev.thiagosouto:bom-plugin:0.4.1")
+        classpath("dev.thiagosouto:bom-plugin:0.5.0")
     }
 }
 
@@ -49,7 +49,7 @@ plugin-DSL:
 
 ```groovy
 plugins {
-    id "dev.thiagosouto.plugins.bom-plugin" version "0.4.1"
+    id "dev.thiagosouto.plugins.bom-plugin" version "0.5.0"
 }
 bomMetadata{
     artifactId = "some-artifact-id" // The id of the artifact(pom.xml) created
@@ -68,7 +68,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath "dev.thiagosouto:bom-plugin:0.4.1"
+        classpath "dev.thiagosouto:bom-plugin:0.5.0"
     }
 }
 
@@ -79,6 +79,14 @@ bomMetadata{
     groupId = "some.group.id" //  The id for the project group.
     name = "some-name" // Name of your bom project
     version = "someVersion"// The version of the artifact created
+    licenseName = "" // license of your bom, could be empty if not exist
+    licenseUrl = "" // license url of your bom, could be empty if not exist
+    developerId = "" // developer id of your BOM, could be empty if not exist
+    developerName = "" // developer name of your BOM, could be empty if not exist
+    developerEmail = "" // developer email of your BOM, could be empty if not exist
+    scmConnection = "" // scm connection your BOM, could be empty if not exist
+    scmDeveloperConnection = ""// scm developer connection your BOM, could be empty if not exist
+    scmUrl = ""// scm url your BOM, could be empty if not exist
 }
 ```
 

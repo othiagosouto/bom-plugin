@@ -23,17 +23,11 @@ class CreateBomTaskTest {
         buildFile = testProjectDir.newFile("build.gradle")
         buildFile.appendText(
             """
-                 plugins {
-                    id "java"
-                    id "dev.thiagosouto.plugins.bom-plugin"
-                }
-                bomMetadata {
-                    artifactId = "artifact-bom"
-                    description = "some description"
-                    groupId = "dev.thiagosouto"
-                    name = "Bill of Materials"
-                    version = "0.1.0-SNAPSHOT"
-                } 
+                     plugins {
+                        id "java"
+                        id "dev.thiagosouto.plugins.bom-plugin"
+                     }
+                 
                 """
         )
     }
@@ -41,12 +35,20 @@ class CreateBomTaskTest {
     @Test
     fun `createBomFile should generate BOM xml with exclusion rules`() {
         buildFile.appendText(
-            """     
-                dependencies {
-                    bomConfiguration("junit:junit:4.13.2") {
-                        exclude group: 'com.google.guava', module:  'guava'
+            """  
+                    bomMetadata {
+                        artifactId = "artifact-bom"
+                        description = "some description"
+                        groupId = "dev.thiagosouto"
+                        name = "Bill of Materials"
+                        version = "0.1.0-SNAPSHOT"
                     }
-                }
+                    
+                    dependencies {
+                        bomConfiguration("junit:junit:4.13.2") {
+                            exclude group: 'com.google.guava', module:  'guava'
+                        }
+                    }
             """
         )
         gradleRunner = GradleRunner.create()
@@ -64,10 +66,18 @@ class CreateBomTaskTest {
     @Test
     fun `createBomFile should generate BOM xml without exclusion rules`() {
         buildFile.appendText(
-            """     
-                dependencies {
-                    bomConfiguration("junit:junit:4.13.2")
-                }
+            """
+                    bomMetadata {
+                        artifactId = "artifact-bom"
+                        description = "some description"
+                        groupId = "dev.thiagosouto"
+                        name = "Bill of Materials"
+                        version = "0.1.0-SNAPSHOT"
+                    }
+                    
+                    dependencies {
+                        bomConfiguration("junit:junit:4.13.2")
+                    }
             """
         )
         gradleRunner = GradleRunner.create()
@@ -78,6 +88,89 @@ class CreateBomTaskTest {
         val result = gradleRunner.withArguments("build", "createBomFile").build()
         val generatedPomContent = File(testProjectDir.root.path + "/build/outputs/bom/pom.xml").readText()
         assertThat(generatedPomContent).isEqualTo(readFile("plugin_results/pom1.xml"))
+        assertThat(result.task(":createBomFile")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
+    }
+
+    @Test
+    fun `should build pom with expected license`() {
+        buildFile.appendText(
+            """
+                    bomMetadata {
+                        artifactId = "artifact-bom"
+                        description = "some description"
+                        groupId = "dev.thiagosouto"
+                        name = "Bill of Materials"
+                        version = "0.1.0-SNAPSHOT"
+                        licenseName = "Apache License, Version 2.0"
+                        licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                """
+        )
+
+        gradleRunner = GradleRunner.create()
+            .withPluginClasspath()
+            .withProjectDir(testProjectDir.root)
+            .withTestKitDir(testProjectDir.newFolder())
+
+        val result = gradleRunner.withArguments("build", "createBomFile").build()
+        val generatedPomContent = File(testProjectDir.root.path + "/build/outputs/bom/pom.xml").readText()
+        assertThat(generatedPomContent).isEqualTo(readFile("plugin_results/pom_with_license.xml"))
+        assertThat(result.task(":createBomFile")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
+    }
+
+    @Test
+    fun `should build pom with developers info`() {
+        buildFile.appendText(
+            """
+                    bomMetadata {
+                        artifactId = "artifact-bom"
+                        description = "some description"
+                        groupId = "dev.thiagosouto"
+                        name = "Bill of Materials"
+                        version = "0.1.0-SNAPSHOT"
+                        developerId = "othiagosouto"
+                        developerName = "Thiago Souto Silva de Barros Santos"
+                        developerEmail = "soutosss@gmail.com"
+                    }
+                """
+        )
+
+        gradleRunner = GradleRunner.create()
+            .withPluginClasspath()
+            .withProjectDir(testProjectDir.root)
+            .withTestKitDir(testProjectDir.newFolder())
+
+        val result = gradleRunner.withArguments("build", "createBomFile").build()
+        val generatedPomContent = File(testProjectDir.root.path + "/build/outputs/bom/pom.xml").readText()
+        assertThat(generatedPomContent).isEqualTo(readFile("plugin_results/pom_with_developers.xml"))
+        assertThat(result.task(":createBomFile")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
+    }
+
+    @Test
+    fun `should build pom with scm info`() {
+        buildFile.appendText(
+            """
+                    bomMetadata {
+                        artifactId = "artifact-bom"
+                        description = "some description"
+                        groupId = "dev.thiagosouto"
+                        name = "Bill of Materials"
+                        version = "0.1.0-SNAPSHOT"
+                        scmConnection = "scm:git:git://github.com/othiagosouto/test-butler.git/"
+                        scmDeveloperConnection = "'scm:git:ssh://github.com:othiagosouto/test-butler.git"
+                        scmUrl = "https://github.com/othiagosouto/bom-plugin"
+                    }
+                """
+        )
+
+        gradleRunner = GradleRunner.create()
+            .withPluginClasspath()
+            .withProjectDir(testProjectDir.root)
+            .withTestKitDir(testProjectDir.newFolder())
+
+        val result = gradleRunner.withArguments("build", "createBomFile").build()
+        val generatedPomContent = File(testProjectDir.root.path + "/build/outputs/bom/pom.xml").readText()
+        assertThat(generatedPomContent).isEqualTo(readFile("plugin_results/pom_with_scm.xml"))
         assertThat(result.task(":createBomFile")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
     }
 }

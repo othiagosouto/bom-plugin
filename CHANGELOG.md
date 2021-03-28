@@ -5,6 +5,13 @@
 ### Modified
 ### Removed
 
+## Version 0.5.0 - (2021-03-28)]
+### Added
+- Added developerId, developerName, developerEmail, scmConnection, scmDeveloperConnection, scmUrl fields to `BomMetadata`.
+- Added `licenses` tag to generated `pom.xml` when the user fills licenses info in `BomMetadata`.
+- Added `developers` tag to generated `pom.xml` when the user fills developer info in `BomMetadata`.
+- Added `scm` tag to generated `pom.xml` when the user fills scm info in `BomMetadata`.
+
 ## Version 0.4.1 - (2021-03-26)]
 ### Fixed
 - Artifacts from `bomConfiguration` weren't available to `implementation` configuration.

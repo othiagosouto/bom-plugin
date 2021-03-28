@@ -2,6 +2,8 @@ package dev.thiagosouto.plugins.bom.pom
 
 import dev.thiagosouto.plugins.bom.BomInfo
 import dev.thiagosouto.plugins.bom.BomMetadata
+import dev.thiagosouto.plugins.bom.RootTag
+import dev.thiagosouto.plugins.bom.SimpleTag
 import dev.thiagosouto.plugins.bom.Tag
 import dev.thiagosouto.plugins.bom.createDependencies
 import org.gradle.api.DefaultTask
@@ -22,7 +24,14 @@ open class CreateBomTask : DefaultTask() {
     fun create() {
         val creator = BOMDocumentCreator()
         val bomMetadata = BomMetadata.fromProject(project)
-        val bomInfo = BomInfo(createProjectAttributes(), createProjectTags(bomMetadata), project.createDependencies())
+        val tags = createProjectTags(bomMetadata) + createLicenseTags(bomMetadata) +
+                createDevelopersTags(bomMetadata) +
+                createSCMTags(bomMetadata)
+        val bomInfo = BomInfo(
+            createProjectAttributes(),
+            tags,
+            project.createDependencies()
+        )
         Files.createDirectories(Paths.get("${project.buildDir}/outputs/bom/"))
         createXml(creator.create(bomInfo), "${project.buildDir}/outputs/bom/pom.xml")
     }
@@ -36,10 +45,10 @@ open class CreateBomTask : DefaultTask() {
 
     private fun createProjectAttributes(): List<Tag> {
         val attrs = mutableListOf<Tag>()
-        attrs.add(Tag("xmlns", "http://maven.apache.org/POM/4.0.0"))
-        attrs.add(Tag("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance"))
+        attrs.add(SimpleTag("xmlns", "http://maven.apache.org/POM/4.0.0"))
+        attrs.add(SimpleTag("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance"))
         attrs.add(
-            Tag(
+            SimpleTag(
                 "xsi:schemaLocation",
                 "http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
             )
@@ -49,13 +58,63 @@ open class CreateBomTask : DefaultTask() {
 
     private fun createProjectTags(projectInfo: BomMetadata): List<Tag> {
         val attrs = mutableListOf<Tag>()
-        attrs.add(Tag("modelVersion", "4.0.0"))
-        attrs.add(Tag("groupId", projectInfo.groupId))
-        attrs.add(Tag("artifactId", projectInfo.artifactId))
-        attrs.add(Tag("version", projectInfo.version))
-        attrs.add(Tag("packaging", "pom"))
-        attrs.add(Tag("description", projectInfo.description))
-        attrs.add(Tag("name", projectInfo.name))
+        attrs.add(SimpleTag("modelVersion", "4.0.0"))
+        attrs.add(SimpleTag("groupId", projectInfo.groupId))
+        attrs.add(SimpleTag("artifactId", projectInfo.artifactId))
+        attrs.add(SimpleTag("version", projectInfo.version))
+        attrs.add(SimpleTag("packaging", "pom"))
+        attrs.add(SimpleTag("description", projectInfo.description))
+        attrs.add(SimpleTag("name", projectInfo.name))
         return attrs
+    }
+
+    private fun createLicenseTags(projectInfo: BomMetadata): List<Tag> {
+        val tags = mutableListOf<Tag>()
+        if (projectInfo.licenseName.isNotEmpty() && projectInfo.licenseUrl.isNotEmpty()) {
+            val licenseTags = mutableListOf<Tag>()
+            licenseTags.add(SimpleTag("name", projectInfo.licenseName))
+            licenseTags.add(SimpleTag("url", projectInfo.licenseUrl))
+            val license = RootTag("license", licenseTags)
+            val licenseTag = RootTag("licenses", listOf(license))
+            tags.add(licenseTag)
+        }
+        return tags
+    }
+
+    private fun createDevelopersTags(projectInfo: BomMetadata): List<Tag> {
+        val tags = mutableListOf<Tag>()
+        val isDevelopersInfoFilled = projectInfo.developerId.isNotEmpty() &&
+                projectInfo.developerName.isNotEmpty() &&
+                projectInfo.developerId.isNotEmpty()
+
+        if (isDevelopersInfoFilled) {
+            val licenseTags = mutableListOf<Tag>()
+            licenseTags.add(SimpleTag("id", projectInfo.developerId))
+            licenseTags.add(SimpleTag("name", projectInfo.developerName))
+            licenseTags.add(SimpleTag("email", projectInfo.developerEmail))
+
+            val license = RootTag("developer", licenseTags)
+            val licenseTag = RootTag("developers", listOf(license))
+            tags.add(licenseTag)
+        }
+        return tags
+    }
+
+    private fun createSCMTags(projectInfo: BomMetadata): List<Tag> {
+        val tags = mutableListOf<Tag>()
+        val isScmTagsFilled = projectInfo.scmConnection.isNotEmpty() &&
+                projectInfo.scmDeveloperConnection.isNotEmpty() &&
+                projectInfo.scmUrl.isNotEmpty()
+
+        if (isScmTagsFilled) {
+            val scmTags = mutableListOf<Tag>()
+            scmTags.add(SimpleTag("connection", projectInfo.scmConnection))
+            scmTags.add(SimpleTag("developerConnection", projectInfo.scmDeveloperConnection))
+            scmTags.add(SimpleTag("url", projectInfo.scmUrl))
+
+            val scmTag = RootTag("scm", scmTags)
+            tags.add(scmTag)
+        }
+        return tags
     }
 }

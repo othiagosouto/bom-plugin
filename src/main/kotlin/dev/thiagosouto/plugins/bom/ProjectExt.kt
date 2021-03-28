@@ -2,19 +2,20 @@ package dev.thiagosouto.plugins.bom
 
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ModuleDependency
+import org.gradle.kotlin.dsl.create
 
-fun Project.createDependencies(): List<Dependency> {
-    val deps = mutableListOf<Dependency>()
+internal fun Project.createDependencies(): List<Dependency> {
+    val dependencies = mutableListOf<Dependency>()
     project
         .configurations
         .filter { it.name == "bomConfiguration" }
         .forEach { config ->
             config.dependencies.forEach {
-                deps.add(Dependency(it.name, it.group ?: "", it.version ?: "", getExclusions(it)))
+                dependencies.add(Dependency(it.name, it.group ?: "", it.version ?: "", getExclusions(it)))
             }
         }
 
-    return deps
+    return dependencies
 }
 
 private fun getExclusions(dependency: org.gradle.api.artifacts.Dependency): List<Exclusion> {
@@ -25,4 +26,8 @@ private fun getExclusions(dependency: org.gradle.api.artifacts.Dependency): List
         }
     }
     return exclusions
+}
+
+internal fun Project.createBomMetadataExtension() {
+    this.extensions.create<BomMetadata>(BomMetadata.EXT_NAME)
 }
