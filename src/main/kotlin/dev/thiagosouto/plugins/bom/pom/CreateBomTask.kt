@@ -2,6 +2,7 @@ package dev.thiagosouto.plugins.bom.pom
 
 import dev.thiagosouto.plugins.bom.BomInfo
 import dev.thiagosouto.plugins.bom.BomMetadata
+import dev.thiagosouto.plugins.bom.SimpleTag
 import dev.thiagosouto.plugins.bom.Tag
 import dev.thiagosouto.plugins.bom.createDependencies
 import org.gradle.api.DefaultTask
@@ -36,10 +37,10 @@ open class CreateBomTask : DefaultTask() {
 
     private fun createProjectAttributes(): List<Tag> {
         val attrs = mutableListOf<Tag>()
-        attrs.add(Tag("xmlns", "http://maven.apache.org/POM/4.0.0"))
-        attrs.add(Tag("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance"))
+        attrs.add(SimpleTag("xmlns", "http://maven.apache.org/POM/4.0.0"))
+        attrs.add(SimpleTag("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance"))
         attrs.add(
-            Tag(
+            SimpleTag(
                 "xsi:schemaLocation",
                 "http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
             )
@@ -49,13 +50,13 @@ open class CreateBomTask : DefaultTask() {
 
     private fun createProjectTags(projectInfo: BomMetadata): List<Tag> {
         val attrs = mutableListOf<Tag>()
-        attrs.add(Tag("modelVersion", "4.0.0"))
-        attrs.add(Tag("groupId", projectInfo.groupId))
-        attrs.add(Tag("artifactId", projectInfo.artifactId))
-        attrs.add(Tag("version", projectInfo.version))
-        attrs.add(Tag("packaging", "pom"))
-        attrs.add(Tag("description", projectInfo.description))
-        attrs.add(Tag("name", projectInfo.name))
+        attrs.add(SimpleTag("modelVersion", "4.0.0"))
+        attrs.add(SimpleTag("groupId", projectInfo.groupId))
+        attrs.add(SimpleTag("artifactId", projectInfo.artifactId))
+        attrs.add(SimpleTag("version", projectInfo.version))
+        attrs.add(SimpleTag("packaging", "pom"))
+        attrs.add(SimpleTag("description", projectInfo.description))
+        attrs.add(SimpleTag("name", projectInfo.name))
         return attrs
     }
 }

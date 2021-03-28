@@ -3,6 +3,7 @@ package dev.thiagosouto.plugins.bom.pom
 import dev.thiagosouto.plugins.bom.BomInfo
 import dev.thiagosouto.plugins.bom.Dependency
 import dev.thiagosouto.plugins.bom.Exclusion
+import dev.thiagosouto.plugins.bom.SimpleTag
 import dev.thiagosouto.plugins.bom.Tag
 import org.w3c.dom.Document
 import org.w3c.dom.Element
@@ -31,13 +32,17 @@ class BOMDocumentCreator {
 
     private fun createMavenAttributes(rootElement: Element, projectAttributes: List<Tag>) {
         for (attribute in projectAttributes) {
-            rootElement.setAttribute(attribute.name, attribute.value)
+            if (attribute is SimpleTag) {
+                rootElement.setAttribute(attribute.name, attribute.value)
+            }
         }
     }
 
     private fun appendPomInfo(document: Document, rootElement: Element, tags: List<Tag>) {
         for (tag in tags) {
-            rootElement.appendChild(createTagValueElement(document, tag.name, tag.value))
+            if (tag is SimpleTag) {
+                rootElement.appendChild(createTagValueElement(document, tag.name, tag.value))
+            }
         }
     }
 
