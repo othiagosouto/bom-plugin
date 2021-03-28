@@ -145,4 +145,32 @@ class CreateBomTaskTest {
         assertThat(generatedPomContent).isEqualTo(readFile("plugin_results/pom_with_developers.xml"))
         assertThat(result.task(":createBomFile")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
     }
+
+    @Test
+    fun `should build pom with scm info`() {
+        buildFile.appendText(
+            """
+                    bomMetadata {
+                        artifactId = "artifact-bom"
+                        description = "some description"
+                        groupId = "dev.thiagosouto"
+                        name = "Bill of Materials"
+                        version = "0.1.0-SNAPSHOT"
+                        scmConnection = "scm:git:git://github.com/othiagosouto/test-butler.git/"
+                        scmDeveloperConnection = "'scm:git:ssh://github.com:othiagosouto/test-butler.git"
+                        scmUrl = "https://github.com/othiagosouto/bom-plugin"
+                    }
+                """
+        )
+
+        gradleRunner = GradleRunner.create()
+            .withPluginClasspath()
+            .withProjectDir(testProjectDir.root)
+            .withTestKitDir(testProjectDir.newFolder())
+
+        val result = gradleRunner.withArguments("build", "createBomFile").build()
+        val generatedPomContent = File(testProjectDir.root.path + "/build/outputs/bom/pom.xml").readText()
+        assertThat(generatedPomContent).isEqualTo(readFile("plugin_results/pom_with_scm.xml"))
+        assertThat(result.task(":createBomFile")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
+    }
 }

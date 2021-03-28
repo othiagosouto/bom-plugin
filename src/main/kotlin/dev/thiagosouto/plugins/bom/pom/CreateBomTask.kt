@@ -24,9 +24,12 @@ open class CreateBomTask : DefaultTask() {
     fun create() {
         val creator = BOMDocumentCreator()
         val bomMetadata = BomMetadata.fromProject(project)
+        val tags = createProjectTags(bomMetadata) + createLicenseTags(bomMetadata) +
+                createDevelopersTags(bomMetadata) +
+                createSCMTags(bomMetadata)
         val bomInfo = BomInfo(
             createProjectAttributes(),
-            createProjectTags(bomMetadata) + createLicenseTags(bomMetadata) + createDevelopersTags(bomMetadata),
+            tags,
             project.createDependencies()
         )
         Files.createDirectories(Paths.get("${project.buildDir}/outputs/bom/"))
@@ -93,6 +96,24 @@ open class CreateBomTask : DefaultTask() {
             val license = RootTag("developer", licenseTags)
             val licenseTag = RootTag("developers", listOf(license))
             tags.add(licenseTag)
+        }
+        return tags
+    }
+
+    private fun createSCMTags(projectInfo: BomMetadata): List<Tag> {
+        val tags = mutableListOf<Tag>()
+        val isScmTagsFilled = projectInfo.scmConnection.isNotEmpty() &&
+                projectInfo.scmDeveloperConnection.isNotEmpty() &&
+                projectInfo.scmUrl.isNotEmpty()
+
+        if (isScmTagsFilled) {
+            val scmTags = mutableListOf<Tag>()
+            scmTags.add(SimpleTag("connection", projectInfo.scmConnection))
+            scmTags.add(SimpleTag("developerConnection", projectInfo.scmDeveloperConnection))
+            scmTags.add(SimpleTag("url", projectInfo.scmUrl))
+
+            val scmTag = RootTag("scm", scmTags)
+            tags.add(scmTag)
         }
         return tags
     }
