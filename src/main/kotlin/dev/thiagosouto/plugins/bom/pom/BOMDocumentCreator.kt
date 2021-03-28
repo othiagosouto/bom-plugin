@@ -11,7 +11,7 @@ import org.w3c.dom.Node
 import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
 
-class BOMDocumentCreator {
+internal class BOMDocumentCreator {
 
     fun create(bomInfo: BomInfo): Node {
         val docBuilder: DocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
