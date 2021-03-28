@@ -2,6 +2,7 @@ package dev.thiagosouto.plugins.bom
 
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ModuleDependency
+import org.gradle.kotlin.dsl.create
 
 internal fun Project.createDependencies(): List<Dependency> {
     val dependencies = mutableListOf<Dependency>()
@@ -25,4 +26,8 @@ private fun getExclusions(dependency: org.gradle.api.artifacts.Dependency): List
         }
     }
     return exclusions
+}
+
+internal fun Project.createBomMetadataExtension() {
+    this.extensions.create<BomMetadata>(BomMetadata.EXT_NAME)
 }

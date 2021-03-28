@@ -1,9 +1,9 @@
 package dev.thiagosouto.plugins.bom
 
 import org.gradle.api.Project
-import org.gradle.internal.impldep.org.apache.maven.model.License
 import org.gradle.kotlin.dsl.get
 
+@Suppress("LongParameterList")
 open class BomMetadata(
     var artifactId: String = "",
     var description: String = "",
@@ -12,7 +12,7 @@ open class BomMetadata(
     var version: String = "",
     var licenseName: String = "",
     var licenseUrl: String = "",
-    var developerId : String = "",
+    var developerId: String = "",
     var developerName: String = "",
     var developerEmail: String = "",
     var scmConnection: String = "",

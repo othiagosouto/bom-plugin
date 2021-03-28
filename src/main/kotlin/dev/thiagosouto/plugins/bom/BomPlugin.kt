@@ -6,7 +6,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.ConfigurationContainer
-import org.gradle.kotlin.dsl.create
 
 class BomPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -23,8 +22,4 @@ class BomPlugin : Plugin<Project> {
     private fun ConfigurationContainer.createConfiguration(name: String): Configuration {
         return this.create(name)
     }
-}
-
-fun Project.createBomMetadataExtension() {
-    this.extensions.create<BomMetadata>(BomMetadata.EXT_NAME)
 }
