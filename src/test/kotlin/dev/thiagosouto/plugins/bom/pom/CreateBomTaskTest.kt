@@ -103,7 +103,7 @@ class CreateBomTaskTest {
                         version = "0.1.0-SNAPSHOT"
                         licenseName = "Apache License, Version 2.0"
                         licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-                    } 
+                    }
                 """
         )
 
@@ -115,6 +115,34 @@ class CreateBomTaskTest {
         val result = gradleRunner.withArguments("build", "createBomFile").build()
         val generatedPomContent = File(testProjectDir.root.path + "/build/outputs/bom/pom.xml").readText()
         assertThat(generatedPomContent).isEqualTo(readFile("plugin_results/pom_with_license.xml"))
+        assertThat(result.task(":createBomFile")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
+    }
+
+    @Test
+    fun `should build pom with developers info`() {
+        buildFile.appendText(
+            """
+                    bomMetadata {
+                        artifactId = "artifact-bom"
+                        description = "some description"
+                        groupId = "dev.thiagosouto"
+                        name = "Bill of Materials"
+                        version = "0.1.0-SNAPSHOT"
+                        developerId = "othiagosouto"
+                        developerName = "Thiago Souto Silva de Barros Santos"
+                        developerEmail = "soutosss@gmail.com"
+                    }
+                """
+        )
+
+        gradleRunner = GradleRunner.create()
+            .withPluginClasspath()
+            .withProjectDir(testProjectDir.root)
+            .withTestKitDir(testProjectDir.newFolder())
+
+        val result = gradleRunner.withArguments("build", "createBomFile").build()
+        val generatedPomContent = File(testProjectDir.root.path + "/build/outputs/bom/pom.xml").readText()
+        assertThat(generatedPomContent).isEqualTo(readFile("plugin_results/pom_with_developers.xml"))
         assertThat(result.task(":createBomFile")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
     }
 }

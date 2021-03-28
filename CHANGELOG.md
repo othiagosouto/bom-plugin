@@ -4,6 +4,7 @@
 ### Added
 - Added developerId, developerName, developerEmail, scmConnection, scmDeveloperConnection, scmUrl fields to `BomMetadata`.
 - Added `licenses` tag to generated `pom.xml` when the user fills licenses info in `BomMetadata`.
+- Added `developers` tag to generated `pom.xml` when the user fills developer info in `BomMetadata`.
 
 ### Modified
 ### Removed

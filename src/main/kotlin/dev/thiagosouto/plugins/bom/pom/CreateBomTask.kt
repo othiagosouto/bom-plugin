@@ -26,7 +26,7 @@ open class CreateBomTask : DefaultTask() {
         val bomMetadata = BomMetadata.fromProject(project)
         val bomInfo = BomInfo(
             createProjectAttributes(),
-            createProjectTags(bomMetadata) + createLicenseTags(bomMetadata),
+            createProjectTags(bomMetadata) + createLicenseTags(bomMetadata) + createDevelopersTags(bomMetadata),
             project.createDependencies()
         )
         Files.createDirectories(Paths.get("${project.buildDir}/outputs/bom/"))
@@ -73,6 +73,25 @@ open class CreateBomTask : DefaultTask() {
             licenseTags.add(SimpleTag("url", projectInfo.licenseUrl))
             val license = RootTag("license", licenseTags)
             val licenseTag = RootTag("licenses", listOf(license))
+            tags.add(licenseTag)
+        }
+        return tags
+    }
+
+    private fun createDevelopersTags(projectInfo: BomMetadata): List<Tag> {
+        val tags = mutableListOf<Tag>()
+        val isDevelopersInfoFilled = projectInfo.developerId.isNotEmpty() &&
+                projectInfo.developerName.isNotEmpty() &&
+                projectInfo.developerId.isNotEmpty()
+
+        if (isDevelopersInfoFilled) {
+            val licenseTags = mutableListOf<Tag>()
+            licenseTags.add(SimpleTag("id", projectInfo.developerId))
+            licenseTags.add(SimpleTag("name", projectInfo.developerName))
+            licenseTags.add(SimpleTag("email", projectInfo.developerEmail))
+
+            val license = RootTag("developer", licenseTags)
+            val licenseTag = RootTag("developers", listOf(license))
             tags.add(licenseTag)
         }
         return tags
