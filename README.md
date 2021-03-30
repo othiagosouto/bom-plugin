@@ -11,15 +11,9 @@ plugin-DSL:
 
 ```kotlin
 plugins {
-    id("dev.thiagosouto.plugins.bom-plugin") version "0.5.0"
+    id("dev.thiagosouto.plugins.bom-plugin") version "0.6.0"
 }
-bomMetadata{
-    artifactId = "some-artifact-id" // The id of the artifact(pom.xml) created
-    description = "some description" // artifact description
-    groupId = "some.group.id" //  The id for the project group.
-    name = "some-name" // Name of your bom project
-    version = "someVersion"// The version of the artifact created
-}
+
 ```
 legacy plugin application:
 ```kotlin
@@ -30,33 +24,18 @@ buildscript {
         }
     }
     dependencies {
-        classpath("dev.thiagosouto:bom-plugin:0.5.0")
+        classpath("dev.thiagosouto:bom-plugin:0.6.0")
     }
 }
 
 apply(plugin = "dev.thiagosouto.plugins.bom-plugin")
-
-bomMetadata{
-    artifactId = "some-artifact-id" // The id of the artifact(pom.xml) created
-    description = "some description" // artifact description
-    groupId = "some.group.id" //  The id for the project group.
-    name = "some-name" // Name of your bom project
-    version = "someVersion"// The version of the artifact created
-}
 ```
 #### Using groovy
 plugin-DSL:
 
 ```groovy
 plugins {
-    id "dev.thiagosouto.plugins.bom-plugin" version "0.5.0"
-}
-bomMetadata{
-    artifactId = "some-artifact-id" // The id of the artifact(pom.xml) created
-    description = "some description" // artifact description
-    groupId = "some.group.id" //  The id for the project group.
-    name = "some-name" // Name of your bom project
-    version = "someVersion"// The version of the artifact created
+    id "dev.thiagosouto.plugins.bom-plugin" version "0.6.0"
 }
 ```
 legacy plugin application:
@@ -68,11 +47,16 @@ buildscript {
         }
     }
     dependencies {
-        classpath "dev.thiagosouto:bom-plugin:0.5.0"
+        classpath "dev.thiagosouto:bom-plugin:0.6.0"
     }
 }
 
 apply plugin: "dev.thiagosouto.plugins.bom-plugin"
+```
+
+#### BomMetadata
+
+```
 bomMetadata{
     artifactId = "some-artifact-id" // The id of the artifact(pom.xml) created
     description = "some description" // artifact description
@@ -87,6 +71,8 @@ bomMetadata{
     scmConnection = "" // scm connection your BOM, could be empty if not exist
     scmDeveloperConnection = ""// scm developer connection your BOM, could be empty if not exist
     scmUrl = ""// scm url your BOM, could be empty if not exist
+    url = ""// pom.xml url
+    gpgSign = false // true to add sign step to pom.xml using gpg
 }
 ```
 
@@ -96,6 +82,12 @@ You need to use `implementation` and `bomConfiguration` to declare the dependenc
 ### Tasks
 `./gradlew createBomFile` will create the `pom.xml` in `build/outputs/bom/pom.xml`
 `./gradlew createBomClass` will create the kotlin classes that represents the `pom.xml`. They will be placed in `build/outputs/bom/some/group/id`
+
+
+### Developer contact
+[Linkedin](https://www.linkedin.com/in/thiagosouto/)
+
+[Medium](https://medium.com/@othiagosouto/)
 
 License
 =======

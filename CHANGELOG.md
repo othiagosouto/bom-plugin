@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 ### Added
+### Modified
+### Removed
+
+## Version 0.6.0 - (2021-03-30)
+### Added
 - Added `url` tag to generated `pom.xml` when the user fills url info in `BomMetadata`.
 - Added `build execution with signing step using GPG` tag to generated `pom.xml` when the user fills gpgSign in `BomMetadata`.
 ### Modified
