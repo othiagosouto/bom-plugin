@@ -10,7 +10,7 @@ plugins {
 }
 
 group ="dev.thiagosouto"
-version ="0.5.0"
+version ="0.5.0-SNAPSHOT"
 description = "A plugin to generate BOM from gradle projects"
 
 gradlePlugin {
@@ -56,4 +56,3 @@ pluginBundle {
     vcsUrl = "https://github.com/othiagosouto/bom-plugin"
     tags = listOf("gradle", "BOM", "plugin", "android", "pom")
 }
-
