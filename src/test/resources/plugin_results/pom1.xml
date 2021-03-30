@@ -7,6 +7,7 @@
     <packaging>pom</packaging>
     <description>some description</description>
     <name>Bill of Materials</name>
+    <url/>
     <dependencyManagement>
         <dependencies>
             <dependency>

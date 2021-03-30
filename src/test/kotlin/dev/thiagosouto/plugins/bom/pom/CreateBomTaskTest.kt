@@ -42,6 +42,7 @@ class CreateBomTaskTest {
                         groupId = "dev.thiagosouto"
                         name = "Bill of Materials"
                         version = "0.1.0-SNAPSHOT"
+                        projectUrl = "https://www.google.com"
                     }
                     
                     dependencies {
@@ -171,6 +172,33 @@ class CreateBomTaskTest {
         val result = gradleRunner.withArguments("build", "createBomFile").build()
         val generatedPomContent = File(testProjectDir.root.path + "/build/outputs/bom/pom.xml").readText()
         assertThat(generatedPomContent).isEqualTo(readFile("plugin_results/pom_with_scm.xml"))
+        assertThat(result.task(":createBomFile")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
+    }
+
+
+    @Test
+    fun `should build pom GPG plugin execution`() {
+        buildFile.appendText(
+            """
+                    bomMetadata {
+                        artifactId = "artifact-bom"
+                        description = "some description"
+                        groupId = "dev.thiagosouto"
+                        name = "Bill of Materials"
+                        version = "0.1.0-SNAPSHOT"
+                        gpgSign  = true
+                    }
+                """
+        )
+
+        gradleRunner = GradleRunner.create()
+            .withPluginClasspath()
+            .withProjectDir(testProjectDir.root)
+            .withTestKitDir(testProjectDir.newFolder())
+
+        val result = gradleRunner.withArguments("build", "createBomFile").build()
+        val generatedPomContent = File(testProjectDir.root.path + "/build/outputs/bom/pom.xml").readText()
+        assertThat(generatedPomContent).isEqualTo(readFile("plugin_results/pom1_with_gpg.xml"))
         assertThat(result.task(":createBomFile")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
     }
 }

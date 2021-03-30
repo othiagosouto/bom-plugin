@@ -26,7 +26,8 @@ open class CreateBomTask : DefaultTask() {
         val bomMetadata = BomMetadata.fromProject(project)
         val tags = createProjectTags(bomMetadata) + createLicenseTags(bomMetadata) +
                 createDevelopersTags(bomMetadata) +
-                createSCMTags(bomMetadata)
+                createSCMTags(bomMetadata) +
+                createGpgSignTag(bomMetadata)
         val bomInfo = BomInfo(
             createProjectAttributes(),
             tags,
@@ -65,6 +66,7 @@ open class CreateBomTask : DefaultTask() {
         attrs.add(SimpleTag("packaging", "pom"))
         attrs.add(SimpleTag("description", projectInfo.description))
         attrs.add(SimpleTag("name", projectInfo.name))
+        attrs.add(SimpleTag("url", projectInfo.projectUrl))
         return attrs
     }
 
@@ -116,5 +118,26 @@ open class CreateBomTask : DefaultTask() {
             tags.add(scmTag)
         }
         return tags
+    }
+
+    private fun createGpgSignTag(projectInfo: BomMetadata): List<Tag> {
+        val attrs = mutableListOf<Tag>()
+        if (projectInfo.isGpgSign) {
+            val phaseTag = SimpleTag("phase", "verify")
+            val executionId = SimpleTag("id", "sign-artifacts")
+            val goals = RootTag("goals", listOf(SimpleTag("goal", "sign")))
+            val executionTag = RootTag("execution", listOf(executionId, phaseTag, goals))
+            val executionsTag = RootTag("executions", listOf(executionTag))
+
+            val groupId = SimpleTag("groupId", "org.apache.maven.plugins")
+            val artifactID = SimpleTag("artifactId", "maven-gpg-plugin")
+
+            val pluginTag = RootTag("plugin", listOf(groupId, artifactID, executionsTag))
+            val pluginsTag = RootTag("plugins", listOf(pluginTag))
+            val build = RootTag("build", listOf(pluginsTag))
+
+            attrs.add(build)
+        }
+        return attrs
     }
 }

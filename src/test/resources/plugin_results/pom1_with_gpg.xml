@@ -7,20 +7,25 @@
     <packaging>pom</packaging>
     <description>some description</description>
     <name>Bill of Materials</name>
-    <url>https://www.google.com</url>
+    <url/>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
     <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <artifactId>junit</artifactId>
-                <groupId>junit</groupId>
-                <version>4.13.2</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.google.guava</groupId>
-                        <artifactId>guava</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-        </dependencies>
+        <dependencies/>
     </dependencyManagement>
 </project>
