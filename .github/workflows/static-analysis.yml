@@ -25,5 +25,14 @@ jobs:
       - name: Project Checkout
         uses: actions/checkout@v2.3.4
 
-      - name: Run unit tests 
-        run: ./gradlew test
+      - name: Run unit tests with coverage
+        run: ./gradlew clean jacocoTestReport
+
+      - name: generate report
+        uses: actions/upload-artifact@v2
+        with:
+          name: report
+          path: build/reports/jacoco/test/jacocoTestReport.xml
+
+      - name: send test to codecov
+        uses: codecov/codecov-action@v1.3.1
