@@ -54,6 +54,7 @@ class CreateBomTaskTest {
         )
         gradleRunner = GradleRunner.create()
             .withPluginClasspath()
+            .withDebug(true)
             .withProjectDir(testProjectDir.root)
             .withTestKitDir(testProjectDir.newFolder())
 
@@ -83,6 +84,7 @@ class CreateBomTaskTest {
         )
         gradleRunner = GradleRunner.create()
             .withPluginClasspath()
+            .withDebug(true)
             .withProjectDir(testProjectDir.root)
             .withTestKitDir(testProjectDir.newFolder())
 
@@ -110,6 +112,7 @@ class CreateBomTaskTest {
 
         gradleRunner = GradleRunner.create()
             .withPluginClasspath()
+            .withDebug(true)
             .withProjectDir(testProjectDir.root)
             .withTestKitDir(testProjectDir.newFolder())
 
@@ -138,6 +141,7 @@ class CreateBomTaskTest {
 
         gradleRunner = GradleRunner.create()
             .withPluginClasspath()
+            .withDebug(true)
             .withProjectDir(testProjectDir.root)
             .withTestKitDir(testProjectDir.newFolder())
 
@@ -166,6 +170,7 @@ class CreateBomTaskTest {
 
         gradleRunner = GradleRunner.create()
             .withPluginClasspath()
+            .withDebug(true)
             .withProjectDir(testProjectDir.root)
             .withTestKitDir(testProjectDir.newFolder())
 
@@ -193,6 +198,7 @@ class CreateBomTaskTest {
 
         gradleRunner = GradleRunner.create()
             .withPluginClasspath()
+            .withDebug(true)
             .withProjectDir(testProjectDir.root)
             .withTestKitDir(testProjectDir.newFolder())
 

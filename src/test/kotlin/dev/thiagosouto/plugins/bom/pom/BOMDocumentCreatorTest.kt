@@ -1,8 +1,13 @@
-package dev.thiagosouto.plugins.bom
+package dev.thiagosouto.plugins.bom.pom
 
 import com.google.common.truth.Truth.assertThat
 import dev.thiagosouto.butler.file.readFile
-import dev.thiagosouto.plugins.bom.pom.BOMDocumentCreator
+import dev.thiagosouto.plugins.bom.BomInfo
+import dev.thiagosouto.plugins.bom.Dependency
+import dev.thiagosouto.plugins.bom.Exclusion
+import dev.thiagosouto.plugins.bom.SimpleTag
+import dev.thiagosouto.plugins.bom.Tag
+import dev.thiagosouto.plugins.bom.TestUtils
 import org.junit.Before
 import org.junit.Test
 
