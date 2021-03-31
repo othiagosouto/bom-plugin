@@ -45,6 +45,7 @@ class CreateBomClassTaskTest {
         )
         gradleRunner = GradleRunner.create()
             .withPluginClasspath()
+            .withDebug(true)
             .withProjectDir(testProjectDir.root)
             .withTestKitDir(testProjectDir.newFolder())
 
