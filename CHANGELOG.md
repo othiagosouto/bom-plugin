@@ -5,6 +5,10 @@
 ### Modified
 ### Removed
 
+## 0.6.1 - (2021-03-31)
+### Modified
+- Small fixes
+
 ## Version 0.6.0 - (2021-03-30)
 ### Added
 - Added `url` tag to generated `pom.xml` when the user fills url info in `BomMetadata`.
