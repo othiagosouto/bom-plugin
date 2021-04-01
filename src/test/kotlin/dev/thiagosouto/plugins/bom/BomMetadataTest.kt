@@ -6,7 +6,7 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Before
 import org.junit.Test
 
-class BomMetadataTest {
+internal class BomMetadataTest {
     private lateinit var project: Project
 
     @Before

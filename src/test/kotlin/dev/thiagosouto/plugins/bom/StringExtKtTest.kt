@@ -5,7 +5,7 @@ import dev.thiagosouto.plugins.bom.convertToClassName
 import dev.thiagosouto.plugins.bom.convertToFieldName
 import org.junit.Test
 
-class StringExtKtTest {
+internal class StringExtKtTest {
 
     @Test
     fun `should convert groupId to class name following the kotlin naming`() {

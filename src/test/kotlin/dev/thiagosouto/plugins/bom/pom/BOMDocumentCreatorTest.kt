@@ -11,7 +11,7 @@ import dev.thiagosouto.plugins.bom.TestUtils
 import org.junit.Before
 import org.junit.Test
 
-class BOMDocumentCreatorTest {
+internal class BOMDocumentCreatorTest {
     private lateinit var creator: BOMDocumentCreator
     private val projectTags: List<Tag>
         get() {

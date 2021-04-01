@@ -8,7 +8,7 @@ import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
-class TestUtils {
+internal class TestUtils {
 
     companion object {
         fun getNodeString(element: Node, fileName: String): String {

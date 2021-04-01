@@ -10,7 +10,7 @@ import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import java.io.File
 
-class CreateBomClassTaskTest {
+internal class CreateBomClassTaskTest {
 
     @get: Rule
     var testProjectDir: TemporaryFolder = TemporaryFolder()

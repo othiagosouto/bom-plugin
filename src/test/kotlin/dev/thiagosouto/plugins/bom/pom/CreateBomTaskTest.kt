@@ -10,13 +10,16 @@ import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import java.io.File
 
-class CreateBomTaskTest {
+internal class CreateBomTaskTest {
 
     @get: Rule
     var testProjectDir: TemporaryFolder = TemporaryFolder()
 
     private lateinit var buildFile: File
     private lateinit var gradleRunner: GradleRunner
+    private val bomPath = "/build/outputs/bom/pom.xml"
+    private val createBomFileTaskName = "createBomFile"
+    private val createBomFileTaskResult = ":createBomFile"
 
     @Before
     fun setup() {
@@ -58,10 +61,10 @@ class CreateBomTaskTest {
             .withProjectDir(testProjectDir.root)
             .withTestKitDir(testProjectDir.newFolder())
 
-        val result = gradleRunner.withArguments("build", "createBomFile").build()
-        val generatedPomContent = File(testProjectDir.root.path + "/build/outputs/bom/pom.xml").readText()
+        val result = gradleRunner.withArguments("build", createBomFileTaskName).build()
+        val generatedPomContent = File(testProjectDir.root.path + bomPath).readText()
         assertThat(generatedPomContent).isEqualTo(readFile("plugin_results/pom1_with_exclusion.xml"))
-        assertThat(result.task(":createBomFile")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
+        assertThat(result.task(createBomFileTaskResult)!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
     }
 
 
@@ -88,10 +91,10 @@ class CreateBomTaskTest {
             .withProjectDir(testProjectDir.root)
             .withTestKitDir(testProjectDir.newFolder())
 
-        val result = gradleRunner.withArguments("build", "createBomFile").build()
-        val generatedPomContent = File(testProjectDir.root.path + "/build/outputs/bom/pom.xml").readText()
+        val result = gradleRunner.withArguments("build", createBomFileTaskName).build()
+        val generatedPomContent = File(testProjectDir.root.path + bomPath).readText()
         assertThat(generatedPomContent).isEqualTo(readFile("plugin_results/pom1.xml"))
-        assertThat(result.task(":createBomFile")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
+        assertThat(result.task(createBomFileTaskResult)!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
     }
 
     @Test
@@ -116,10 +119,10 @@ class CreateBomTaskTest {
             .withProjectDir(testProjectDir.root)
             .withTestKitDir(testProjectDir.newFolder())
 
-        val result = gradleRunner.withArguments("build", "createBomFile").build()
-        val generatedPomContent = File(testProjectDir.root.path + "/build/outputs/bom/pom.xml").readText()
+        val result = gradleRunner.withArguments("build", createBomFileTaskName).build()
+        val generatedPomContent = File(testProjectDir.root.path +bomPath).readText()
         assertThat(generatedPomContent).isEqualTo(readFile("plugin_results/pom_with_license.xml"))
-        assertThat(result.task(":createBomFile")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
+        assertThat(result.task(createBomFileTaskResult)!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
     }
 
     @Test
@@ -145,10 +148,10 @@ class CreateBomTaskTest {
             .withProjectDir(testProjectDir.root)
             .withTestKitDir(testProjectDir.newFolder())
 
-        val result = gradleRunner.withArguments("build", "createBomFile").build()
-        val generatedPomContent = File(testProjectDir.root.path + "/build/outputs/bom/pom.xml").readText()
+        val result = gradleRunner.withArguments("build", createBomFileTaskName).build()
+        val generatedPomContent = File(testProjectDir.root.path + bomPath).readText()
         assertThat(generatedPomContent).isEqualTo(readFile("plugin_results/pom_with_developers.xml"))
-        assertThat(result.task(":createBomFile")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
+        assertThat(result.task(createBomFileTaskResult)!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
     }
 
     @Test
@@ -174,10 +177,10 @@ class CreateBomTaskTest {
             .withProjectDir(testProjectDir.root)
             .withTestKitDir(testProjectDir.newFolder())
 
-        val result = gradleRunner.withArguments("build", "createBomFile").build()
-        val generatedPomContent = File(testProjectDir.root.path + "/build/outputs/bom/pom.xml").readText()
+        val result = gradleRunner.withArguments("build", createBomFileTaskName).build()
+        val generatedPomContent = File(testProjectDir.root.path + bomPath).readText()
         assertThat(generatedPomContent).isEqualTo(readFile("plugin_results/pom_with_scm.xml"))
-        assertThat(result.task(":createBomFile")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
+        assertThat(result.task(createBomFileTaskResult)!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
     }
 
 
@@ -202,9 +205,9 @@ class CreateBomTaskTest {
             .withProjectDir(testProjectDir.root)
             .withTestKitDir(testProjectDir.newFolder())
 
-        val result = gradleRunner.withArguments("build", "createBomFile").build()
-        val generatedPomContent = File(testProjectDir.root.path + "/build/outputs/bom/pom.xml").readText()
+        val result = gradleRunner.withArguments("build", createBomFileTaskName).build()
+        val generatedPomContent = File(testProjectDir.root.path + bomPath).readText()
         assertThat(generatedPomContent).isEqualTo(readFile("plugin_results/pom1_with_gpg.xml"))
-        assertThat(result.task(":createBomFile")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
+        assertThat(result.task(createBomFileTaskResult)!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
     }
 }
