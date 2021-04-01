@@ -13,7 +13,7 @@ plugin-DSL:
 
 ```kotlin
 plugins {
-    id("dev.thiagosouto.plugins.bom-plugin") version "0.6.0"
+    id("dev.thiagosouto.plugins.bom-plugin") version "0.7.0"
 }
 
 ```
@@ -26,7 +26,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath("dev.thiagosouto:bom-plugin:0.6.0")
+        classpath("dev.thiagosouto:bom-plugin:0.7.0")
     }
 }
 
@@ -37,7 +37,7 @@ plugin-DSL:
 
 ```groovy
 plugins {
-    id "dev.thiagosouto.plugins.bom-plugin" version "0.6.0"
+    id "dev.thiagosouto.plugins.bom-plugin" version "0.7.0"
 }
 ```
 legacy plugin application:
@@ -49,7 +49,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath "dev.thiagosouto:bom-plugin:0.6.0"
+        classpath "dev.thiagosouto:bom-plugin:0.7.0"
     }
 }
 
@@ -75,6 +75,7 @@ bomMetadata{
     scmUrl = ""// scm url your BOM, could be empty if not exist
     url = ""// pom.xml url
     gpgSign = false // true to add sign step to pom.xml using gpg
+    bomClassName = "" // name of the class name that wil include all dependencies
 }
 ```
 

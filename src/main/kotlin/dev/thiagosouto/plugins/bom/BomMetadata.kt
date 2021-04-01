@@ -19,7 +19,8 @@ open class BomMetadata(
     var scmDeveloperConnection: String = "",
     var scmUrl: String = "",
     var projectUrl: String = "",
-    var isGpgSign: Boolean = false
+    var isGpgSign: Boolean = false,
+    var bomClassName: String = "Bom"
 ) {
     companion object {
         const val EXT_NAME = "bomMetadata"

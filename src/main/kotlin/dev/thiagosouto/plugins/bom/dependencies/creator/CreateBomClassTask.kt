@@ -11,6 +11,6 @@ open class CreateBomClassTask : DefaultTask() {
     fun create() {
         val bomMetadata = BomMetadata.fromProject(project)
         val item = DependencyCreator("${project.buildDir}/outputs/bom")
-        item.generate(bomMetadata.groupId, "Bom", project.createDependencies())
+        item.generate(bomMetadata.groupId, bomMetadata.bomClassName, project.createDependencies())
     }
 }

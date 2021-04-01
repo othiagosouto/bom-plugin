@@ -6,7 +6,7 @@ if [[ $page =~ (Version )([^ ]*) ]]; then
   if [ $published_version == $version_to_publish ]; then
     echo "Version already published, skipping publish step"
   else
-    echo "$(./gradlew) publishPlugins -Pgradle.publish.key=$GRADLE_KEY -Pgradle.publish.secret=$GRADLE_SECRET"
+    echo "$(./gradlew publishPlugins -Pgradle.publish.key=$GRADLE_KEY -Pgradle.publish.secret=$GRADLE_SECRET)"
   fi
 else
   echo "failed to retrieve version from https://plugins.gradle.org/plugin/dev.thiagosouto.plugins.bom-plugin"

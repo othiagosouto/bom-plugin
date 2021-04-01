@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 ### Added
+### Modified
+### Removed
+
+## 0.7.0 - (2021-03-31)
+### Added
+- Added `bomClassName` info in `BomMetadata` to use as custom name for BOM class.
 - Skip publish step if the version is already published on gradle plugins portal
 - CodeCov badge
 ### Modified

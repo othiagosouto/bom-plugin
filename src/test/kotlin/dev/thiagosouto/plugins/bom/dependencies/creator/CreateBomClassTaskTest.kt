@@ -58,4 +58,40 @@ class CreateBomClassTaskTest {
         assertThat(result.task(":createBomClass")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
     }
 
+    @Test
+    fun `createBomFile should generate bom class with expected name`() {
+        buildFile.writeText(
+            """
+                 plugins {
+                    id "java"
+                    id "dev.thiagosouto.plugins.bom-plugin"
+                }
+                bomMetadata {
+                    artifactId = "artifact-bom"
+                    description = "some description"
+                    groupId = "dev.thiagosouto"
+                    name = "Bill of Materials"
+                    version = "0.1.0-SNAPSHOT"
+                    bomClassName = "SomeName"
+                }
+                dependencies {
+                    bomConfiguration "junit:junit:4.13.2"
+                }
+            """
+        )
+        gradleRunner = GradleRunner.create()
+            .withPluginClasspath()
+            .withDebug(true)
+            .withProjectDir(testProjectDir.root)
+            .withTestKitDir(testProjectDir.newFolder())
+
+        val result = gradleRunner.withArguments("createBomClass").build()
+        val bomClass = File(testProjectDir.root.path + "/build/outputs/bom/dev/thiagosouto/SomeName.kt").readText()
+
+        val jUnitClass = File(testProjectDir.root.path + "/build/outputs/bom/dev/thiagosouto/Junit.kt").readText()
+        assertThat(bomClass).isEqualTo(readFile("plugin_results/SomeName.kt"))
+        assertThat(jUnitClass).isEqualTo(readFile("plugin_results/Junit.kt"))
+        assertThat(result.task(":createBomClass")!!.outcome).isEqualTo(TaskOutcome.SUCCESS)
+    }
+
 }
