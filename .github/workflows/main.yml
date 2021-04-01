@@ -30,6 +30,9 @@ jobs:
       - name: send test to codecov
         uses: codecov/codecov-action@v1.3.1
 
+      - name: Make publish executable
+        run: chmod +x .github/workflows/publish.sh
+
       - name: publish gradle plugin
         env:
           GRADLE_KEY: ${{ secrets.GRADLE_KEY }}
