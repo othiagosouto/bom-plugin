@@ -10,7 +10,8 @@ plugins {
 }
 
 group = "dev.thiagosouto"
-version = "0.6.1"
+version = File("VERSION.txt").readText()
+
 description = "A plugin to generate BOM from gradle projects"
 
 jacoco {

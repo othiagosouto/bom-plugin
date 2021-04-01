@@ -35,5 +35,5 @@ jobs:
           GRADLE_KEY: ${{ secrets.GRADLE_KEY }}
           GRADLE_SECRET: ${{ secrets.GRADLE_SECRET }}
         run: |
-         ./gradlew publishPlugins -Pgradle.publish.key=$GRADLE_KEY -Pgradle.publish.secret=$GRADLE_SECRET
+         .github/workflows/publish.sh `cat VERSION.txt`
   

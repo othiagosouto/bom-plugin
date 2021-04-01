@@ -2,7 +2,10 @@
 
 ## [Unreleased]
 ### Added
+- Skip publish step if the version is already published on gradle plugins portal
+- CodeCov badge
 ### Modified
+- Use `VERSION.txt` to retrieve version instead of the hardcoded version in build.gradle.kts
 ### Removed
 
 ## 0.6.1 - (2021-03-31)
