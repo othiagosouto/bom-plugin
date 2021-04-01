@@ -3,6 +3,11 @@
 ## Unreleased
 
 ### Added
+*   Add `codacy` badge
+*   Add `codecov` badge
+
+### Fixed
+*   Fix codacy issues
 
 ### Modified
 

@@ -1,5 +1,6 @@
 # Bom-Plugin
 [![codecov](https://codecov.io/gh/othiagosouto/bom-plugin/branch/main/graph/badge.svg?token=VW1O1KYLSZ)](https://codecov.io/gh/othiagosouto/bom-plugin)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ed975213ef7c46a8b83d53a8f257ace1)](https://www.codacy.com/gh/othiagosouto/bom-plugin/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=othiagosouto/bom-plugin&amp;utm_campaign=Badge_Grade)
 
 A gradle plugin that helps you create a [maven bom](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms) and all constants related to its dependencies.
 
