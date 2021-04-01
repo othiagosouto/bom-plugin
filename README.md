@@ -3,11 +3,13 @@
 
 A gradle plugin that helps you create a [maven bom](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms) and all constants related to its dependencies.
 
-### Features
-- Generate Bill of materials `pom.xml`
-- Generate Kotlin classes to represent all dependencies from the bill of materials
+## Features
+
+*   Generate Bill of materials `pom.xml`
+*   Generate Kotlin classes to represent all dependencies from the bill of materials
 
 ### Setup
+
 #### Using kotlin
 plugin-DSL:
 
@@ -15,8 +17,8 @@ plugin-DSL:
 plugins {
     id("dev.thiagosouto.plugins.bom-plugin") version "0.7.0"
 }
-
 ```
+
 legacy plugin application:
 ```kotlin
 buildscript {
@@ -58,7 +60,7 @@ apply plugin: "dev.thiagosouto.plugins.bom-plugin"
 
 #### BomMetadata
 
-```
+```groovy
 bomMetadata{
     artifactId = "some-artifact-id" // The id of the artifact(pom.xml) created
     description = "some description" // artifact description
@@ -86,14 +88,14 @@ You need to use `implementation` and `bomConfiguration` to declare the dependenc
 `./gradlew createBomFile` will create the `pom.xml` in `build/outputs/bom/pom.xml`
 `./gradlew createBomClass` will create the kotlin classes that represents the `pom.xml`. They will be placed in `build/outputs/bom/some/group/id`
 
-
 ### Developer contact
+
 [Linkedin](https://www.linkedin.com/in/thiagosouto/)
 
 [Medium](https://medium.com/@othiagosouto/)
 
-License
-=======
+## License
+
 MIT License
 
         Copyright (c) 2021 Thiago Souto
