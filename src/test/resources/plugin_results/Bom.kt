@@ -1,5 +1,5 @@
 package dev.thiagosouto
 
-public class Bom {
+public object Bom {
   public val junit: Junit = Junit()
 }

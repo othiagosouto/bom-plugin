@@ -1,5 +1,5 @@
 package dev.thiagosouto
 
-public class SomeName {
+public object SomeName {
   public val junit: Junit = Junit()
 }

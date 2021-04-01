@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Added
 ### Modified
+- `bomClassName` will be created as object.
 ### Removed
 
 ## 0.7.0 - (2021-03-31)

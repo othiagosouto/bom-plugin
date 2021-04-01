@@ -16,7 +16,7 @@ internal class DependencyCreator(path: String) {
     fun generate(packageName: String, className: String, dependenciesList: List<Dependency>) {
         val content: Map<String, List<Dependency>> = dependenciesList.groupBy { it.groupId }
         val groupTypeProperties: MutableList<PropertySpec> = mutableListOf()
-        val bomClass = TypeSpec.classBuilder(className)
+        val bomClass = TypeSpec.objectBuilder(className)
 
         for ((groupId, dependenciesByGroup) in content) {
             val groupClass = createGroupClassAndFile(packageName, groupId, dependenciesByGroup)
