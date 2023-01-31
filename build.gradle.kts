@@ -64,7 +64,7 @@ tasks.withType<GenerateModuleMetadata> {
 }
 
 pluginBundle {
-    website = "https://thiagosouto.dev"
+    website = "https://github.thiagosouto.dev"
     vcsUrl = "https://github.com/othiagosouto/bom-plugin"
     tags = listOf("gradle", "BOM", "plugin", "android", "pom")
 }
