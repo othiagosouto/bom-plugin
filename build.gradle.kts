@@ -1,7 +1,7 @@
 plugins {
     java
     `kotlin-dsl`
-    kotlin("jvm") version "1.4.31"
+    kotlin("jvm") version "1.8.0"
     id("java-gradle-plugin")
     id("maven-publish")
     jacoco
@@ -43,7 +43,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.squareup:kotlinpoet:1.7.2")
+    implementation("com.squareup:kotlinpoet:1.12.0")
 
     testImplementation("com.google.truth:truth:1.1.2")
     testImplementation("junit:junit:4.13.2")
